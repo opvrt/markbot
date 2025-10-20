@@ -1,11 +1,11 @@
 package main
 
 import (
-	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/opvrt/markbot/internal/bot"
+	"github.com/opvrt/markbot/internal/config"
+	"github.com/opvrt/markbot/internal/database"
 )
 
 /*
@@ -20,10 +20,8 @@ import (
 	}
 */
 func main() {
-	err := godotenv.Load("internal/config/.env")
-	if err != nil {
-		log.Println(err)
-	}
+	config.EnvLoad()
+	database.Connect()
 	token := os.Getenv("BOT_TOKEN")
 	bot.Run(token)
 }
