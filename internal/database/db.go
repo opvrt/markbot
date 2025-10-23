@@ -2,16 +2,16 @@ package database
 
 import (
 	"log"
-	"os"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	"github.com/opvrt/markbot/internal/config"
 )
 
 var DB *sqlx.DB
 
 func Connect() {
-	dbURL := os.Getenv("DATABASE_URL")
+	dbURL := config.GetDatabaseURL()
 	var err error
 	DB, err = sqlx.Connect("postgres", dbURL)
 

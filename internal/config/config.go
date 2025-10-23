@@ -1,14 +1,27 @@
 package config
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 )
 
 func EnvLoad() {
-	err := godotenv.Load("internal/config/.env")
+	err := godotenv.Load(".env", "./app.env")
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func GetDatabaseURL() string {
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		user, password, host, port, dbname)
+
 }
