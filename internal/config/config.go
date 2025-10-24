@@ -9,7 +9,7 @@ import (
 )
 
 func EnvLoad() {
-	err := godotenv.Load(".env", "./app.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Println(err)
 	}
@@ -21,7 +21,8 @@ func GetDatabaseURL() string {
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
 	dbname := os.Getenv("DB_NAME")
+	log.Println(fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		user, password, host, port, dbname))
 	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		user, password, host, port, dbname)
-
 }

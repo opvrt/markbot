@@ -15,6 +15,8 @@ WORKDIR /app
 
 COPY --from=builder /app/markbot .
 
+COPY .env .env
+
 ENV GIN_MODE=release
 
 CMD ["./markbot"]
